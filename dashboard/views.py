@@ -57,3 +57,21 @@ def delete_image(request, image_id):
     image.delete()
     messages.success(request, "Image deleted successfully.")  # Add a success message
     return HttpResponseRedirect(reverse("gallery"))
+
+
+# imported for event section
+
+from .models import Event
+from .forms import EventForm
+
+
+def event_view(request):
+    if request.method == "POST":
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("event_view")
+    else:
+        form = EventForm()
+    events = Event.objects.all()
+    return render(request, "dashboard/event.html", {"form": form, "events": events})

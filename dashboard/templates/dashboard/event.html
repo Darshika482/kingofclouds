@@ -51,6 +51,10 @@
 
       <section class="event">
         <h1 class="heading">Events</h1>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit">Add Event</button>
+        </form>
 
         <table class="event-table">
           <tr>
@@ -60,80 +64,25 @@
             <th>Photo</th>
             <th>Action</th>
           </tr>
+          {% for event in events %}
           <tr>
-            <td><input type="text" placeholder="Event Name" /></td>
+            <td>{{ event.name }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.event_date }}</td>
             <td>
-              <input type="text" placeholder="Event Description" />
-            </td>
-            <td><input type="date" /></td>
-            <td>
-              <div class="img-area">
-                <input
-                  type="file"
-                  id="file-1"
-                  class="imgInput"
-                  accept="image/*"
-                />
-                <label for="file-1">Upload Image </label>
-              </div>
+              {% if event.photo %}
+              <img
+                src="{{ event.photo.url }}"
+                alt="{{ event.name }}"
+                style="width: 100px"
+              />
+              {% endif %}
             </td>
             <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
-              </div>
+              <!-- Update and Delete buttons here -->
             </td>
           </tr>
-          <tr>
-            <td><input type="text" placeholder="Event Name" /></td>
-            <td>
-              <input type="text" placeholder="Event Description" />
-            </td>
-            <td><input type="date" /></td>
-            <td>
-              <div class="img-area">
-                <!-- <img src="" alt="" /> -->
-                <input
-                  type="file"
-                  id="file-2"
-                  class="imgInput"
-                  accept="image/"
-                />
-                <label for="file-2">Upload Image </label>
-              </div>
-            </td>
-            <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="text" placeholder="Event Name" /></td>
-            <td>
-              <input type="text" placeholder="Event Description" />
-            </td>
-            <td><input type="date" /></td>
-            <td>
-              <div class="img-area">
-                <!-- <img src="" alt="" /> -->
-                <input
-                  type="file"
-                  id="file-3"
-                  class="imgInput"
-                  accept="image/"
-                />
-                <label for="file-3">Upload Image </label>
-              </div>
-            </td>
-            <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
-              </div>
-            </td>
-          </tr>
+          {% endfor %}
         </table>
       </section>
     </div>
