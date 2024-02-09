@@ -66,72 +66,23 @@
               <th>UPI ID</th>
               <th>Booking Date</th>
             </tr>
+            {% for booking in bookings %}
             <tr>
-              <td>1</td>
-              <td>Rahul Kumar</td>
-              <td>rk1234@gamil.com</td>
-              <td>3</td>
-              <td>5:30</td>
-              <td>20/01/2024</td>
-              <td>5000</td>
-              <td>rk*****@oksbi</td>
-              <td>11/01/2024</td>
+              <td>{{ booking.s_no }}</td>
+              <td>{{ booking.name }}</td>
+              <td>{{ booking.email }}</td>
+              <td>{{ booking.num_persons }}</td>
+              <td>{{ booking.reservation_time|date:"H:i" }}</td>
+              <td>{{ booking.reservation_date|date:"d/m/Y" }}</td>
+              <td>{{ booking.price }}</td>
+              <td>{{ booking.upi_id }}</td>
+              <td>{{ booking.booking_date|date:"d/m/Y" }}</td>
             </tr>
+            {% empty %}
             <tr>
-              <td>2</td>
-              <td>Rahul Kumar</td>
-              <td>rk1234@gamil.com</td>
-              <td>3</td>
-              <td>5:30</td>
-              <td>20/01/2024</td>
-              <td>5000</td>
-              <td>rk*****@oksbi</td>
-              <td>11/01/2024</td>
+              <td colspan="9">No bookings found.</td>
             </tr>
-            <tr>
-              <td>3</td>
-              <td>Rahul Kumar</td>
-              <td>rk1234@gamil.com</td>
-              <td>3</td>
-              <td>5:30</td>
-              <td>20/01/2024</td>
-              <td>5000</td>
-              <td>rk*****@oksbi</td>
-              <td>11/01/2024</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Rahul Kumar</td>
-              <td>rk1234@gamil.com</td>
-              <td>3</td>
-              <td>5:30</td>
-              <td>20/01/2024</td>
-              <td>5000</td>
-              <td>rk*****@oksbi</td>
-              <td>11/01/2024</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Rahul Kumar</td>
-              <td>rk1234@gamil.com</td>
-              <td>3</td>
-              <td>5:30</td>
-              <td>20/01/2024</td>
-              <td>5000</td>
-              <td>rk*****@oksbi</td>
-              <td>11/01/2024</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Rahul Kumar</td>
-              <td>rk1234@gamil.com</td>
-              <td>3</td>
-              <td>5:30</td>
-              <td>20/01/2024</td>
-              <td>5000</td>
-              <td>rk*****@oksbi</td>
-              <td>11/01/2024</td>
-            </tr>
+            {% endfor %}
           </table>
         </div>
       </section>

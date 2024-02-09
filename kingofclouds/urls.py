@@ -18,9 +18,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# for dashboard gallery
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("dashboardadmin/", include("dashboard.urls")),
     # path("", include(("maintest.urls", "maintest"), namespace="maintest")),
     path("", include("maintest.urls")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

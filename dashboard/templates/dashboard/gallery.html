@@ -19,6 +19,16 @@
 
   <body>
     <div class="container">
+      <!-- Messages Display -->
+    {% if messages %}
+    <div class="messages" style="padding: 20px; margin-bottom: 20px;">
+        {% for message in messages %}
+            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; background-color: #f9f9f9; color: #333;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
       <nav>
         <ul>
           <li>
@@ -50,122 +60,44 @@
       <div style="width: 250px"></div>
 
       <section class="gallery">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="file" name="image_files" multiple>
+          <button type="submit">Upload Images</button>
+      </form>
+
         <h1 class="heading">Gallery</h1>
 
+        <!-- Gallery Display Table -->
         <table class="gallery-table">
           <tr>
             <th>S No.</th>
             <th>Photo</th>
             <th>Action</th>
           </tr>
+          {% for image in images %}
           <tr>
-            <td>1</td>
-            <td>
-              <div class="img-area">
-                <!-- <img src="" alt="" /> -->
-                <input
-                  type="file"
-                  id="file-1"
-                  class="imgInput"
-                  accept="image/*"
-                />
-                <label for="file-1">Upload Image </label>
-              </div>
+            <td>{{ forloop.counter }}</td>
+            <td style="text-align: center; vertical-align: middle;">
+              <img src="{{ image.image.url }}" alt="Uploaded Image" style="max-width: 200px; height: auto; display: block; margin-left: auto; margin-right: auto;">
             </td>
             <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
+              <div class="action-btn" style="text-align: center;">
+                <a href="{% url 'delete_image' image.id %}" class="button" onclick="return confirm('Are you sure you want to delete this image?');">Delete</a>
               </div>
             </td>
           </tr>
+          {% empty %}
           <tr>
-            <td>2</td>
-            <td>
-              <div class="img-area">
-                <!-- <img src="" alt="" /> -->
-                <input
-                  type="file"
-                  id="file-2"
-                  class="imgInput"
-                  accept="image/"
-                />
-                <label for="file-2">Upload Image </label>
-              </div>
-            </td>
-            <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
-              </div>
-            </td>
+            <td colspan="3">No images found.</td>
           </tr>
-          <tr>
-            <td>3</td>
-            <td>
-              <div class="img-area">
-                <!-- <img src="" alt="" /> -->
-                <input
-                  type="file"
-                  id="file-3"
-                  class="imgInput"
-                  accept="image/"
-                />
-                <label for="file-3">Upload Image </label>
-              </div>
-            </td>
-            <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>
-              <div class="img-area">
-                <!-- <img src="" alt="" /> -->
-                <input
-                  type="file"
-                  id="file-4"
-                  class="imgInput"
-                  accept="image/"
-                />
-                <label for="file-4">Upload Image </label>
-              </div>
-            </td>
-            <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>
-              <div class="img-area">
-                <!-- <img src="" alt="" /> -->
-                <input
-                  type="file"
-                  id="file-5"
-                  class="imgInput"
-                  accept="image/"
-                />
-                <label for="file-5">Upload Image </label>
-              </div>
-            </td>
-            <td>
-              <div class="action-btn">
-                <button>Update</button>
-                <button>Delete</button>
-              </div>
-            </td>
-          </tr>
+          {% endfor %}
         </table>
-      </section>
-    </div>
+        
+
+
+
     <script src="{% static 'dashboard/js/imgUpload.js' %}"></script>
   </body>
 </html>

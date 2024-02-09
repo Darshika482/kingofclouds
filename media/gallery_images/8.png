@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+        }
+
+        .roadmap {
+            position: relative;
+            width: 600px;
+            height: 300px;
+        }
+
+        .point {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            background: #4CAF50;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 10px;
+        }
+
+        #point1 { top: 0; left: 0; }
+        #point2 { top: 100px; left: 150px; }
+        #point3 { top: 200px; left: 300px; }
+        #point4 { top: 100px; left: 450px; }
+
+        .path {
+            position: absolute;
+            width: 600px;
+            height: 300px;
+            background: transparent;
+            border: 5px solid #4CAF50;
+            border-radius: 300px 300px 0 0;
+            top: 50px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="roadmap">
+        <div class="point" id="point1"><span>Start</span></div>
+        <div class="point" id="point2"><span>Milestone 1</span></div>
+        <div class="point" id="point3"><span>Milestone 2</span></div>
+        <div class="point" id="point4"><span>Goal</span></div>
+        <div class="path"></div>
+    </div>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
