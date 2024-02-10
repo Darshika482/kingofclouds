@@ -65,11 +65,22 @@ from .models import Event
 from .forms import EventForm
 
 
+from django.http import JsonResponse  # Make sure to import JsonResponse
+
+
 def event_view(request):
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            event = form.save()
+            if request.is_ajax():
+                data = {
+                    "name": event.name,
+                    "description": event.description,
+                    "event_date": event.event_date.strftime("%Y-%m-%d"),
+                    "photo_url": event.photo.url if event.photo else "",
+                }
+                return JsonResponse({"event": data})
             return redirect("event_view")
     else:
         form = EventForm()

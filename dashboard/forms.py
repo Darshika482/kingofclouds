@@ -10,7 +10,6 @@ class ImageUploadForm(forms.ModelForm):
         fields = ["description"]
 
 
-# for event
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
